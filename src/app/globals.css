@@ -9,6 +9,13 @@
 	color: inherit;
 }
 
+:root {
+	--white-003: rgb(255, 255, 255, .03);
+	--white-005: rgb(255, 255, 255, .05);
+	--white: #fff;
+	--black-1000: #090909;
+}
+
 html {
 	height: 100%;
 	font-size: 100%;
@@ -16,7 +23,9 @@ html {
 }
 
 body {
+	font-size: 1rem;
+	font-weight: 400;
 	height: 100%;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
+	color: var(--white);
+	background: var(--black-1000);
 }

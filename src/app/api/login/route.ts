@@ -10,10 +10,15 @@ export async function POST(request: Request) {
   
   try {
     const tokenResponse = await fetch(`${BASE_URL}authentication/token/new?api_key=${API_KEY}`);
-    
-    if (!tokenResponse.ok) {
-      console.error('Failed to fetch request token');
-    }
+
+    if (tokenResponse.status !== 200) {
+			console.error('Failed to fetch request token');
+      
+      return NextResponse.json(
+				{ error: 'Invalid username or password' },
+				{ status: 401 }
+			)
+		}
     
     const { request_token } = await tokenResponse.json();
     
@@ -28,9 +33,14 @@ export async function POST(request: Request) {
       }
     );
     
-    if (!validateResponse.ok) {
-      console.error('Invalid login or password');
-    }
+    if (validateResponse.status !== 200) {
+			console.error('Invalid login or password');
+
+      return NextResponse.json(
+        { error: 'Invalid username or password' },
+        { status: 401 }
+      )
+		}
     
     const sessionResponse = await fetch(`${BASE_URL}authentication/session/new?api_key=${API_KEY}`, {
       method: 'POST',
@@ -38,18 +48,27 @@ export async function POST(request: Request) {
       body: JSON.stringify({ request_token }),
     });
 
-    if (!sessionResponse.ok) {
-      console.error('Failed to create session');
-    }
+    if (sessionResponse.status !== 200) {
+			console.error('Failed to create session');
+
+      return NextResponse.json(
+        { error: 'Invalid username or password' },
+        { status: 401 }
+      )
+		}
 
     const sessionData = await sessionResponse.json();
     const {session_id} = await sessionData;
     
-    const session: string = jwt.sign(
-      {session_id},
-      `${JWT_SECRET}`,
-      {expiresIn: '30d'}
-    )
+    if (!session_id) {
+      return NextResponse.json(
+				{ status: 401 }
+			)
+    }
+
+    const session: string = jwt.sign({ session_id }, `${JWT_SECRET}`, {
+      expiresIn: '30d',
+    })
     
     return NextResponse.json(session);
   } catch (error) {

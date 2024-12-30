@@ -1,9 +1,48 @@
-.form input {
-  height: 40px;
-  width: 300px;
+.login {
+  padding: 80px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
 }
 
-.form button {
-  width: 100px;
-  height: 40px;
+.login h2 {
+  text-align: center;
+  font-weight: 300;
+  font-size: 1.75rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: .4375rem;
+  align-items: center;
+}
+
+.row {
+  width: 100%;
+}
+
+.row:last-child {
+  padding-top: 1.25rem;
+}
+
+.account {
+  text-align: center;
+  font-weight: 200;
+  font-size: .75rem;
+}
+
+.account span {
+  opacity: .5;
+}
+
+.account a {
+  opacity: 1;
+}
+
+.error {
+  font-size: 12px;
+  color: rgb(237, 50, 50);
+  align-self: center;
+  display: block;
 }

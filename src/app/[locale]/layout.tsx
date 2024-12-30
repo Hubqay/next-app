@@ -3,7 +3,7 @@ import {getMessages} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import React from "react";
-import Header from "@/components/Header/Header";
+import Navigate from "@/components/Navigate/Navigate";
 
 export default async function LocaleLayout(
   {children, params}: { children: React.ReactNode; params: {locale: string}; }
@@ -12,13 +12,13 @@ export default async function LocaleLayout(
   const { locale } = await params;
   const messages = await getMessages();
   
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as "en" | "ru")) {
     notFound();
   }
   
   return (
     <div className="app">
-      <Header />
+      <Navigate />
       <main>
       <NextIntlClientProvider messages={messages}>
         {children}

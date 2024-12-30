@@ -1,6 +1,14 @@
 import React from "react";
 import type { Metadata, Viewport } from "next";
+import { Poppins } from "next/font/google";
 import "./globals.css";
+
+const poppins = Poppins({
+  weight: ['200', '300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin', 'latin-ext'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,12 +22,10 @@ export const viewport: Viewport = {
   maximumScale: 1,
 }
 
-export default function RootLayout(
-  {children}: Readonly<{ children: React.ReactNode; }>
-) {
+export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={poppins.className}>
         {children}
       </body>
     </html>
