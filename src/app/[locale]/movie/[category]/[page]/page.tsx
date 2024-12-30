@@ -1,9 +1,17 @@
 import Movies from "@/components/Movies/Movies";
 
-export async function MoviePageServer({ params }: { params: { category: string; page: string; locale: string } }) {
+type MediaTypes = {
+  category: string;
+  page: string;
+  locale: string
+}
+
+export async function MoviePageServer({ params }: { params: MediaTypes }) {
   const { category, page, locale } = await params;
 
-  const res = await fetch(`http://localhost:3000/api/movies?category=${category}&page=${page}&locale=${locale}`);
+  const res = await fetch(`http://localhost:3000/api/media?media=movie&category=${category}&page=${page}&locale=${locale}`,
+  { cache: "no-store" }
+  );
 
   if (!res.ok) {
     return <div>Error fetching movies</div>;

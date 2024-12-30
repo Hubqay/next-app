@@ -8,8 +8,9 @@ export async function GET(request: Request) {
   const category: string | null = url.searchParams.get('category');
   const page: string | null = url.searchParams.get('page');
   const locale: string | null = url.searchParams.get('locale');
+  const media: string | null = url.searchParams.get('media');
   
-  if (!category || !page || !locale) {
+  if (!category || !page || !locale || !media) {
     return NextResponse.json(
       { error: 'Category and page are required' },
       { status: 400 }
@@ -17,11 +18,11 @@ export async function GET(request: Request) {
   }
   
   try {
-    const response = await fetch(`${baseUrl}movie/${category}?page=${page}&api_key=${apiKey}&language=${locale}`);
+    const response = await fetch(`${baseUrl}${media}/${category}?page=${page}&api_key=${apiKey}&language=${locale}`);
     
     if (!response.ok) {
       return NextResponse.json(
-        { error: 'Failed to fetch movies' },
+        { error: 'Failed to fetch media' },
         { status: 500 }
       );
     }

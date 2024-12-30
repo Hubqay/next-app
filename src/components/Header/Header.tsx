@@ -11,7 +11,8 @@ const menuLinks: HeaderProps[] = [
 	{name: "Home", path: "/"},
 	{name: "Movies", path: "/movie/popular/1"},
 	{name: "Tv series", path: "/tv/popular/1"},
-	{name: "Actors", path: "/person/popular/1"}
+	{name: "Actors", path: "/person/popular/1"},
+	{name: "Login", path: "/login"}
 ]
 
 const Header: React.FC = () => {
