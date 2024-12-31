@@ -5,20 +5,21 @@ const baseUrl = process.env.TMDB_API_BASE_URL;
 
 export async function GET(request: Request) {
   const url: URL = new URL(request.url);
-  const category: string | null = url.searchParams.get('category');
   const page: string | null = url.searchParams.get('page');
   const locale: string | null = url.searchParams.get('locale');
-  const media: string | null = url.searchParams.get('media');
+  const urlLink: string | null = url.searchParams.get('url');
   
-  if (!category || !page || !locale || !media) {
-    return NextResponse.json(
-      { error: 'Category and page are required' },
-      { status: 400 }
-    );
-  }
+  if (!page || !locale || !urlLink) {
+		return NextResponse.json(
+			{ error: 'Category and page are required' },
+			{ status: 400 }
+		)
+	}
   
   try {
-    const response = await fetch(`${baseUrl}${media}/${category}?page=${page}&api_key=${apiKey}&language=${locale}`);
+    const response = await fetch(
+			`${baseUrl}${urlLink}?page=${page}&api_key=${apiKey}&language=${locale}`
+		)
     
     if (!response.ok) {
       return NextResponse.json(
@@ -30,6 +31,7 @@ export async function GET(request: Request) {
     const data = await response.json();
     return NextResponse.json(data.results);
   } catch (error) {
+    console.log(error);
     return NextResponse.json({
       error: 'Internal server error' },
       { status: 500 }

@@ -1,12 +1,12 @@
 import React from "react";
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 
-const poppins = Poppins({
-  weight: ['200', '300', '400', '500', '600', '700'],
+const poppins = Roboto({
+  weight: ['300', '400', '500', '700'],
   style: ['normal', 'italic'],
-  subsets: ['latin', 'latin-ext'],
+  subsets: ['latin', 'cyrillic'],
   display: 'swap',
 })
 
